@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   Chat.associate = function(models) {
     // associations can be defined here
     Chat.belongsToMany(models.User, {
-      through: 'user_chats'
+      through: 'users_chats'
     });
     Chat.hasMany(models.Message);
   };
