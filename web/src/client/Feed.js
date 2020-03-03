@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
+import { graphql } from 'react-apollo';
+import compose from 'lodash.flowright';
 
 const GET_POSTS = gql`
   query {
@@ -14,12 +16,23 @@ const GET_POSTS = gql`
     }
   }
 `;
+const ADD_POST = gql`
+  mutation addPost($post: PostInput!) {
+    addPost(post: $post) {
+      id
+      text
+      user {
+        username
+        avatar
+      }
+    }
+  }
+`;
 
 class Feed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: [],
       postContent: ''
     };
   }
@@ -27,19 +40,19 @@ class Feed extends Component {
     this.setState({ postContent: event.target.value });
   };
   handleSubmit = event => {
+    const self = this;
     event.preventDefault();
     const newPost = {
-      id: this.state.posts.length + 1,
-      text: this.state.postContent,
-      user: {
-        avatar: '/uploads/avatar3.png',
-        username: 'Fake User'
-      }
+      text: this.state.postContent
     };
-    this.setState(prevState => ({
-      posts: [newPost, ...prevState.posts],
-      postContent: ''
-    }));
+
+    this.props
+      .addPost({
+        variables: { post: newPost }
+      })
+      .then(() => {
+        self.setState(prevState => ({ postContent: '' }));
+      });
   };
   render() {
     const { postContent } = this.state;
@@ -81,5 +94,15 @@ class Feed extends Component {
     );
   }
 }
+const ADD_POST_MUTATION = graphql(ADD_POST, {
+  name: 'addPost'
+});
 
-export default Feed;
+const GET_POSTS_QUERY = graphql(GET_POSTS, {
+  props: ({ data: { loading, error, posts } }) => ({
+    loading,
+    error,
+    posts
+  })
+});
+export default compose(GET_POSTS_QUERY, ADD_POST_MUTATION)(Feed);

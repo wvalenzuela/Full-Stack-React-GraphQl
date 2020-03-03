@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <div className="container">
         <Helmet>
-          <title>Medical - Feed</title>
+          <title>Graphbook - Feed</title>
           <meta
             name="description"
             content="Newsfeed of all your friends on Graphbook"
