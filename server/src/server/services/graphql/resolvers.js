@@ -50,7 +50,7 @@ export default function resolver() {
         return Post.findAll({ order: [['createdAt', 'DESC']] });
       },
       chat(root, { chatId }, context) {
-        return Chat.findById(chatId, {
+        return Chat.findByPk(chatId, {
           include: [
             {
               model: User,
