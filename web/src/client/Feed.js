@@ -1,4 +1,20 @@
 import React, { Component } from 'react';
+import gql from 'graphql-tag';
+// import { Query, Mutation } from "react-apollo";
+import { graphql } from 'react-apollo';
+
+const GET_POSTS = gql`
+  query {
+    posts {
+      id
+      text
+      user {
+        avatar
+        username
+      }
+    }
+  }
+`;
 
 class Feed extends Component {
   constructor(props) {
@@ -27,7 +43,14 @@ class Feed extends Component {
     }));
   };
   render() {
-    const { posts, postContent } = this.state;
+    const { posts, loading, error } = this.props;
+    if (loading) {
+      return 'Loading...';
+    }
+    if (error) {
+      return error.message;
+    }
+    const { postContent } = this.state;
     return (
       <div>
         <div className="postForm">
@@ -56,4 +79,10 @@ class Feed extends Component {
   }
 }
 
-export default Feed;
+export default graphql(GET_POSTS, {
+  props: ({ data: { loading, error, posts } }) => ({
+    loading,
+    error,
+    posts
+  })
+})(Feed);
