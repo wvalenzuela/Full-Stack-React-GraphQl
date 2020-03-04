@@ -1,7 +1,7 @@
 body {
   background-color: #f6f7f9;
   margin: 0;
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
 }
 p {
   margin-bottom: 0;
@@ -49,7 +49,7 @@ form textarea {
   padding: 10px;
   border-color: #bbb;
 }
-form [type="submit"] {
+form [type='submit'] {
   border: none;
   background-color: #6ca6fd;
   color: #fff;
@@ -57,4 +57,30 @@ form [type="submit"] {
   border-radius: 5px;
   font-size: 14px;
   float: right;
+}
+.optimistic {
+  -webkit-animation: scale-up 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: scale-up 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+@-webkit-keyframes scale-up {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-up {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
 }
