@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
+import Loading from './components/loading';
 
 const GET_CHATS = gql`
   {
@@ -119,7 +120,7 @@ class Chats extends Component {
         <div className="chats">
           <Query query={GET_CHATS}>
             {({ loading, error, data }) => {
-              if (loading) return <p>Loading...</p>;
+              if (loading) return <Loading />;
               if (error) return error.message;
               const { chats } = data;
               return chats.map((chat, i) => (
