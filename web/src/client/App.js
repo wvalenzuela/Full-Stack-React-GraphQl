@@ -1,3 +1,4 @@
+// Debugging with the Apollo Client Developer tools
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 
