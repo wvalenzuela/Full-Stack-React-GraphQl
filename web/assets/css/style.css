@@ -226,3 +226,16 @@ form [type='submit'] {
     opacity: 0;
   }
 }
+
+.message {
+  margin: 20px auto;
+  padding: 5px;
+  max-width: 400px;
+}
+
+.error.message {
+  border-radius: 5px;
+  background-color: #fff7f5;
+  border: 1px solid #ff9566;
+  width: 100%;
+}
