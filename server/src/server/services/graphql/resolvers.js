@@ -90,6 +90,26 @@ export default function resolver() {
             ]
           });
         });
+      },
+      postsFeed(root, { page, limit }, context) {
+        var skip = 0;
+
+        if (page && limit) {
+          skip = page * limit;
+        }
+
+        var query = {
+          order: [['createdAt', 'DESC']],
+          offset: skip
+        };
+
+        if (limit) {
+          query.limit = limit;
+        }
+
+        return {
+          posts: Post.findAll(query)
+        };
       }
     },
     RootMutation: {
