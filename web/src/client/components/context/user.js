@@ -1,4 +1,5 @@
 import React, { Component, createContext } from 'react';
+import { ApolloConsumer } from 'react-apollo';
 
 const { Provider, Consumer } = createContext();
 
@@ -12,7 +13,7 @@ export class UserProvider extends Component {
     return <Provider value={user}>{children}</Provider>;
   }
 }
-export class UserConsumer extends Component {
+export class UserConsumerPrevCommit extends Component {
   render() {
     const { children } = this.props;
     return (
@@ -23,6 +24,26 @@ export class UserConsumer extends Component {
           })
         }
       </Consumer>
+    );
+  }
+}
+
+export class UserConsumer extends Component {
+  render() {
+    const { children } = this.props;
+    return (
+      <ApolloConsumer>
+        {client => {
+          // Use client.readQuery to get the current logged in user.
+          const user = {
+            username: 'Local User',
+            avatar: '/uploads/avatar1.png'
+          };
+          return React.Children.map(children, function(child) {
+            return React.cloneElement(child, { user });
+          });
+        }}
+      </ApolloConsumer>
     );
   }
 }
