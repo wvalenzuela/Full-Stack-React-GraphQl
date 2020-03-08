@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 
 import '../../assets/css/style.css';
+import './components/fontawesome';
 
 import Feed from './Feed';
 import Chats from './Chats';
