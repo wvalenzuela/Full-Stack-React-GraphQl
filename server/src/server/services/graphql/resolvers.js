@@ -1,23 +1,7 @@
 import logger from '../../helpers/logger';
+import Sequelize from 'sequelize';
 
-let posts = [
-  {
-    id: 2,
-    text: 'Lorem ipsum',
-    user: {
-      avatar: '/uploads/avatar1.png',
-      username: 'Test User'
-    }
-  },
-  {
-    id: 1,
-    text: 'Lorem ipsum',
-    user: {
-      avatar: '/uploads/avatar2.png',
-      username: 'Test User 2'
-    }
-  }
-];
+const Op = Sequelize.Op;
 
 export default function resolver() {
   const { db } = this;
@@ -109,6 +93,32 @@ export default function resolver() {
 
         return {
           posts: Post.findAll(query)
+        };
+      },
+      usersSearch(root, { page, limit, text }, context) {
+        if (text.length < 3) {
+          return {
+            users: []
+          };
+        }
+        var skip = 0;
+        if (page && limit) {
+          skip = page * limit;
+        }
+        var query = {
+          order: [['createdAt', 'DESC']],
+          offset: skip
+        };
+        if (limit) {
+          query.limit = limit;
+        }
+        query.where = {
+          username: {
+            [Op.like]: '%' + text + '%'
+          }
+        };
+        return {
+          users: User.findAll(query)
         };
       }
     },

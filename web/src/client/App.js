@@ -7,6 +7,7 @@ import './components/fontawesome';
 
 import Feed from './Feed';
 import Chats from './Chats';
+import Bar from './components/bar';
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
             content="Newsfeed of all your friends on Graphbook"
           />
         </Helmet>
+        <Bar />
         <Feed />
         <Chats />
       </div>
