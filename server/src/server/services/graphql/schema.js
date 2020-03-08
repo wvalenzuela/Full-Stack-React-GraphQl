@@ -27,6 +27,10 @@ const typeDefinitions = `
   type PostFeed {
     posts: [Post]
   }
+  type Response {
+    success: Boolean
+  }
+
   input PostInput {
     text: String!
   }
@@ -61,6 +65,8 @@ const typeDefinitions = `
       post: PostInput!
       postId: Int!
     ):Post
+
+    deletePost (postId: Int ): Response
   }
 
   type RootQuery {

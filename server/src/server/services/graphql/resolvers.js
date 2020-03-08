@@ -178,6 +178,33 @@ export default function resolver() {
             return Post.findByPk(postId);
           }
         });
+      },
+      deletePost(root, { postId }, context) {
+        return Post.destroy({
+          where: {
+            id: postId
+          }
+        }) // this part I implemented using catch function and ES6
+          .then(rows => {
+            if (rows[0] === 1) {
+              logger.log({
+                level: 'info',
+                message: 'Post ' + postId + ' was delete'
+              });
+            }
+            return {
+              success: true
+            };
+          })
+          .catch(err => {
+            logger.log({
+              level: 'info',
+              message: 'Post ' + postId + ' deleting: ' + err
+            });
+            return {
+              success: false
+            };
+          });
       }
     }
   };
