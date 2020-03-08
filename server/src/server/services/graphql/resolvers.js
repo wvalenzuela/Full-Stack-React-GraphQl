@@ -157,6 +157,27 @@ export default function resolver() {
             });
           });
         });
+      },
+      updatePost(root, { post, postId }, context) {
+        return Post.update(
+          {
+            ...post
+          },
+          {
+            where: {
+              id: postId
+            }
+          }
+        ).then(rows => {
+          if (rows[0] === 1) {
+            logger.log({
+              level: 'info',
+              message: 'Post ' + postId + ' was updated'
+            });
+            // this part was missing from the book
+            return Post.findByPk(postId);
+          }
+        });
       }
     }
   };

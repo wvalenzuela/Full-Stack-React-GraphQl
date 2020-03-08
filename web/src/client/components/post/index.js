@@ -1,17 +1,34 @@
 import React, { Component } from 'react';
 import PostHeader from './header';
 import PostContent from './content';
+import PostForm from './form';
+import UpdatePostMutation from '../mutations/updatePost';
 
 class Post extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editing: false
+    };
+  }
+  changeState = () => {
+    const { editing } = this.state;
+    this.setState({ editing: !editing });
+  };
   render() {
     const { post } = this.props;
+    const { editing } = this.state;
     return (
       <div className={'post ' + (post.id < 0 ? 'optimistic' : '')}>
-        <PostHeader post={post} />
-        <PostContent post={post} />
+        <PostHeader post={post} changeState={this.changeState} />
+        {!editing && <PostContent post={post} />}
+        {editing && (
+          <UpdatePostMutation post={post}>
+            <PostForm changeState={this.changeState} />
+          </UpdatePostMutation>
+        )}
       </div>
     );
   }
 }
-
 export default Post;
