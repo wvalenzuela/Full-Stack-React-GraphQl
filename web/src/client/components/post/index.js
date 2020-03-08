@@ -6,17 +6,6 @@ import PostForm from './form';
 import UpdatePostMutation from '../mutations/updatePost';
 
 class Post extends Component {
-  static propTypes = {
-    /** Object containing the complete post. */
-    post: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      text: PropTypes.string.isRequired,
-      user: PropTypes.shape({
-        avatar: PropTypes.string.isRequired,
-        username: PropTypes.string.isRequired
-      }).isRequired
-    }).isRequired
-  };
   constructor(props) {
     super(props);
     this.state = {
@@ -43,4 +32,16 @@ class Post extends Component {
     );
   }
 }
+Post.propTypes = {
+  /** Object containing the complete post. */
+  post: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      avatar: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired
+};
+
 export default Post;
