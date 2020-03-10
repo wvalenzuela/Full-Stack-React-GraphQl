@@ -35,6 +35,10 @@ const typeDefinitions = `
     users: [User]
   }
 
+  type Auth {
+    token: String
+  }
+
   input PostInput {
     text: String!
   }
@@ -71,6 +75,12 @@ const typeDefinitions = `
     ):Post
 
     deletePost (postId: Int ): Response
+
+    login(
+      email: String!
+      password: String!
+    ):Auth
+    
   }
 
   type RootQuery {
