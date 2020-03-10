@@ -4,4 +4,4 @@ This is the implementation of all the chapter of the Book :[Hands-On Full-Stack 
 
 # Structure
 
-Each chapter of the book is encoded with Git Tag.
+Each chapter of the book starts with a Git Tag, and each commit is a section of the book
