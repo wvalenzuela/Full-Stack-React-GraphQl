@@ -93,7 +93,7 @@ const typeDefinitions = `
 
   type RootQuery {
     posts: [Post]
-    chats: [Chat]
+    chats: [Chat] @auth
     chat(chatId: Int): Chat
     postsFeed(page: Int, limit: Int):PostFeed  @auth
     usersSearch(page: Int, limit: Int, text: String!) : UsersSearch

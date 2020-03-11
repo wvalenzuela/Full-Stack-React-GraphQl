@@ -58,26 +58,18 @@ export default function resolver() {
           ]
         });
       },
-      chats(root, args, context) {
-        return User.findAll().then(users => {
-          if (!users.length) {
-            return [];
-          }
-
-          const usersRow = users[0];
-
-          return Chat.findAll({
-            include: [
-              {
-                model: User,
-                required: true,
-                through: { where: { userId: usersRow.id } }
-              },
-              {
-                model: Message
-              }
-            ]
-          });
+      chats(root, args, { user }) {
+        return Chat.findAll({
+          include: [
+            {
+              model: User,
+              required: true,
+              through: { where: { userId: user.id } }
+            },
+            {
+              model: Message
+            }
+          ]
         });
       },
       postsFeed(root, { page, limit }, context) {
