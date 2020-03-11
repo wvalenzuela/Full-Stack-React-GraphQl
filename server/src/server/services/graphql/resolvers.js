@@ -117,6 +117,9 @@ export default function resolver() {
         return {
           users: User.findAll(query)
         };
+      },
+      currentUser(root, args, { user }) {
+        return user;
       }
     },
     RootMutation: {

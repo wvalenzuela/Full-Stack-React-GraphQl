@@ -1,4 +1,3 @@
-// Debugging with the Apollo Client Developer tools
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 
@@ -8,9 +7,9 @@ import './components/fontawesome';
 import Feed from './Feed';
 import Chats from './Chats';
 import Bar from './components/bar';
-import { UserConsumer } from './components/context/user';
 
 import LoginRegisterForm from './components/loginregister';
+import CurrentUserQuery from './components/queries/currentUser';
 
 class App extends Component {
   constructor(props) {
@@ -40,11 +39,11 @@ class App extends Component {
           />
         </Helmet>
         {loggedIn ? (
-          <UserConsumer>
-            <Bar />
+          <CurrentUserQuery>
+            <Bar changeLoginState={this.changeLoginState} />
             <Feed />
             <Chats />
-          </UserConsumer>
+          </CurrentUserQuery>
         ) : (
           <LoginRegisterForm changeLoginState={this.changeLoginState} />
         )}

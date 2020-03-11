@@ -97,6 +97,7 @@ const typeDefinitions = `
     chat(chatId: Int): Chat
     postsFeed(page: Int, limit: Int):PostFeed  @auth
     usersSearch(page: Int, limit: Int, text: String!) : UsersSearch
+    currentUser: User @auth
   }
 
   schema {
