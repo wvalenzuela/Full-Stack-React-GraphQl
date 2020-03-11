@@ -6,7 +6,6 @@ import Logout from './logout';
 
 class Bar extends Component {
   render() {
-    const { changeLoginState } = this.props;
     return (
       <div className="topbar">
         <div className="inner">
@@ -16,7 +15,7 @@ class Bar extends Component {
           </UserConsumer>
         </div>
         <div className="buttons">
-          <Logout changeLoginState={changeLoginState} />
+          <Logout />
         </div>
       </div>
     );
