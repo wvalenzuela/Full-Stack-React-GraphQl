@@ -10,8 +10,26 @@ import Chats from './Chats';
 import Bar from './components/bar';
 import { UserConsumer } from './components/context/user';
 
+import LoginRegisterForm from './components/loginregister';
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false
+    };
+  }
+  componentDidMount() {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      this.setState({ loggedIn: true });
+    }
+  }
+  changeLoginState = loggedIn => {
+    this.setState({ loggedIn });
+  };
   render() {
+    const { loggedIn } = this.state;
     return (
       <div className="container">
         <Helmet>
@@ -21,11 +39,15 @@ class App extends Component {
             content="Newsfeed of all your friends on Graphbook"
           />
         </Helmet>
-        <UserConsumer>
-          <Bar />
-          <Feed />
-          <Chats />
-        </UserConsumer>
+        {loggedIn ? (
+          <UserConsumer>
+            <Bar />
+            <Feed />
+            <Chats />
+          </UserConsumer>
+        ) : (
+          <LoginRegisterForm changeLoginState={this.changeLoginState} />
+        )}
       </div>
     );
   }
