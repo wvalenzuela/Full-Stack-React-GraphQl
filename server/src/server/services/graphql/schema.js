@@ -80,7 +80,13 @@ const typeDefinitions = `
       email: String!
       password: String!
     ):Auth
-    
+
+    signup(
+      username: String!
+      email: String!
+      password: String!
+    ):Auth
+
   }
 
   type RootQuery {
