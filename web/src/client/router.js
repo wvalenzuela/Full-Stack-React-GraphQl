@@ -36,7 +36,10 @@ const LoginRoute = ({ component: Component, ...rest }) => (
       ) : (
         <Redirect
           to={{
-            pathname: '/app'
+            pathname:
+              typeof props.location.state !== typeof undefined
+                ? props.location.state.from.pathname
+                : '/app'
           }}
         />
       )
