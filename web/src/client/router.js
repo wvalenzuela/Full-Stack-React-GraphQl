@@ -43,6 +43,12 @@ const LoginRoute = ({ component: Component, ...rest }) => (
   />
 );
 
+class NotFound extends Component {
+  render() {
+    return <Redirect to="/" />;
+  }
+}
+
 class Routing extends Component {
   render() {
     return (
@@ -65,6 +71,7 @@ class Routing extends Component {
             )}
             loggedIn={this.props.loggedIn}
           />
+          <Route component={NotFound} />
         </Switch>
       </Router>
     );
