@@ -61,6 +61,13 @@ class Routing extends Component {
             )}
             loggedIn={this.props.loggedIn}
           />
+          <PrivateRoute
+            path="/user/:username"
+            component={() => (
+              <Main changeLoginState={this.props.changeLoginState} />
+            )}
+            loggedIn={this.props.loggedIn}
+          />
           <LoginRoute
             exact
             path="/"
