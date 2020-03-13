@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
-import { withApollo } from 'react-apollo';
-
 import '../../assets/css/style.css';
 import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.min.css';
-
 import './components/fontawesome';
-
-import Feed from './Feed';
-import Chats from './Chats';
-import Bar from './components/bar';
-
-import LoginRegisterForm from './components/loginregister';
-import CurrentUserQuery from './components/queries/currentUser';
+import { withApollo } from 'react-apollo';
+import Router from './router';
 
 class App extends Component {
   constructor(props) {
@@ -20,14 +12,14 @@ class App extends Component {
     this.unsubscribe = props.client.onResetStore(() =>
       this.changeLoginState(false)
     );
-    this.state = {
-      loggedIn: false
-    };
   }
   componentWillUnmount() {
     this.unsubscribe();
   }
-  componentDidMount() {
+  state = {
+    loggedIn: false
+  };
+  componentWillMount() {
     const token = localStorage.getItem('jwt');
     if (token) {
       this.setState({ loggedIn: true });
@@ -37,9 +29,8 @@ class App extends Component {
     this.setState({ loggedIn });
   };
   render() {
-    const { loggedIn } = this.state;
     return (
-      <div className="container">
+      <div>
         <Helmet>
           <title>Graphbook - Feed</title>
           <meta
@@ -47,15 +38,10 @@ class App extends Component {
             content="Newsfeed of all your friends on Graphbook"
           />
         </Helmet>
-        {loggedIn ? (
-          <CurrentUserQuery>
-            <Bar />
-            <Feed />
-            <Chats />
-          </CurrentUserQuery>
-        ) : (
-          <LoginRegisterForm changeLoginState={this.changeLoginState} />
-        )}
+        <Router
+          loggedIn={this.state.loggedIn}
+          changeLoginState={this.changeLoginState}
+        />
       </div>
     );
   }
