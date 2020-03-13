@@ -3,6 +3,7 @@ import SearchBar from './search';
 import UserBar from './user';
 import { UserConsumer } from '../context/user';
 import Logout from './logout';
+import Home from './home';
 
 class Bar extends Component {
   render() {
@@ -15,6 +16,7 @@ class Bar extends Component {
           </UserConsumer>
         </div>
         <div className="buttons">
+          <Home />
           <Logout />
         </div>
       </div>
