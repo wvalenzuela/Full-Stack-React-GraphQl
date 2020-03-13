@@ -1,16 +1,17 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const buildDirectory = "build";
-const outputDirectory = buildDirectory + "/client";
+const buildDirectory = 'build';
+const outputDirectory = buildDirectory + '/client';
 
 module.exports = {
-  mode: "development",
-  entry: "./src/client/index.js",
+  mode: 'development',
+  entry: './src/client/index.js',
   output: {
-    path: path.join(__dirname, outputDirectory),
-    filename: "bundle.js"
+    path: path.join(__dirname, buildDirectory),
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -18,25 +19,26 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader'
         }
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
   devServer: {
     port: 3001,
-    open: true
+    open: true,
+    historyApiFallback: true
   },
   plugins: [
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [path.join(__dirname, buildDirectory)]
     }),
     new HtmlWebpackPlugin({
-      template: "./public/index.html"
+      template: './public/index.html'
     })
   ]
 };
