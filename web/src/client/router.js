@@ -7,6 +7,7 @@ import {
   Redirect,
   Switch
 } from 'react-router-dom';
+import User from './User';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -63,8 +64,8 @@ class Routing extends Component {
           />
           <PrivateRoute
             path="/user/:username"
-            component={() => (
-              <Main changeLoginState={this.props.changeLoginState} />
+            component={props => (
+              <User {...props} changeLoginState={this.props.changeLoginState} />
             )}
             loggedIn={this.props.loggedIn}
           />
