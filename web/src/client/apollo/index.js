@@ -2,9 +2,9 @@ import gql from 'graphql-tag';
 
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
+import { createUploadLink } from 'apollo-upload-client';
 
 const AuthLink = (operation, next) => {
   const token = localStorage.getItem('jwt');
@@ -39,7 +39,7 @@ const client = new ApolloClient({
       }
     }),
     AuthLink,
-    new HttpLink({
+    createUploadLink({
       uri: 'http://localhost:8000/graphql',
       credentials: 'same-origin'
     })

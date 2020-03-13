@@ -3,6 +3,8 @@ import { Helmet } from 'react-helmet';
 import { withApollo } from 'react-apollo';
 
 import '../../assets/css/style.css';
+import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.min.css';
+
 import './components/fontawesome';
 
 import Feed from './Feed';

@@ -287,7 +287,9 @@ export default function resolver() {
         });
       },
       async uploadAvatar(root, { file }, context) {
-        const { stream, filename, mimetype, encoding } = await file;
+        console.log('before file');
+        const { createReadStream, filename, mimetype, encoding } = await file;
+        const stream = createReadStream();
         const bucket = 'apollobookwaldo';
         const params = {
           Bucket: bucket,
@@ -295,24 +297,29 @@ export default function resolver() {
           ACL: 'public-read',
           Body: stream
         };
+        console.log('after file', { filename, params });
+        try {
+          const response = await s3.upload(params).promise();
+          console.log('response', { response });
 
-        const response = await s3.upload(params).promise();
-
-        return User.update(
-          {
-            avatar: response.Location
-          },
-          {
-            where: {
-              id: context.user.id
+          return User.update(
+            {
+              avatar: response.Location
+            },
+            {
+              where: {
+                id: context.user.id
+              }
             }
-          }
-        ).then(() => {
-          return {
-            filename: filename,
-            url: response.Location
-          };
-        });
+          ).then(() => {
+            return {
+              filename: filename,
+              url: response.Location
+            };
+          });
+        } catch (error) {
+          console.log({ error });
+        }
       }
     }
   };
